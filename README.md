@@ -27,5 +27,5 @@ now
 * [React-Player](https://cookpete.com/react-player/)
 * [icecast-parse](https://www.npmjs.com/package/icecast-parser)
 * [google search](https://developers.google.com/custom-search/v1/overview)
-* [loom])(https://www.eurogamer.net/articles/2015-04-26-remembering-loom-the-game-designed-to-be-completed)
+* [loom](https://www.eurogamer.net/articles/2015-04-26-remembering-loom-the-game-designed-to-be-completed)
 * [observable music viz](https://observablehq.com/@alandelip/music-viz)
