@@ -1,0 +1,53 @@
+$column-width: 480px;
+$gutter-width: 20px;
+
+.app {
+  margin: auto;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  text-align: center;
+  color: #666;
+}
+
+.section {
+  display: inline-block;
+  max-width: $column-width;
+  margin: $gutter-width;
+  text-align: left;
+  vertical-align: top;
+}
+
+.player-wrapper {
+  width: 480px;
+  height: 270px;
+}
+
+.react-player {
+  margin-bottom: 10px;
+  background: rgba(0, 0, 0, .1);
+}
+
+.faded {
+  color: rgba(0, 0, 0, .5);
+}
+
+.footer {
+  margin: $gutter-width;
+}
+
+h2 {
+    padding: 0px;
+    margin: 0px;
+}
+
+.meta {
+    display: block;
+    animation: mymove 0.5s;
+    animation-timing-function: ease-out;
+    margin-bottom: 20px;
+}
+    
+  @keyframes mymove {
+    from {height: 0px; opacity: 0}
+    to {height: 40px; opacity: 1}
+  }
