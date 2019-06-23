@@ -4,6 +4,8 @@ After discovering [React-Player](https://cookpete.com/react-player/), I wanted t
 
 I wanted to make React Player easy to deploy with [now](https://zeit.co/now) and thus ported it into a simple create react app so I wouldn't have to worry about webpack config. I added [icecast-parse](https://www.npmjs.com/package/icecast-parser) so that I could see the current show title. Then I thought it would be nice to throw that title into a google search.
 
+[loomradio.now.sh](https://loomradio.now.sh/)
+
 #### Getting Started
 
 sign up for a free [google search](https://developers.google.com/custom-search/v1/overview) API which gives 100 searches per day.
