@@ -96,8 +96,8 @@ class App extends Component {
     this.setState({ pip: !this.state.pip });
   };
   onSearch = () => {
-    const {meta} = this.state;
-    const cx = '001416230067881723525:aixpfy93ova';
+    const { meta } = this.state;
+    const cx = "001416230067881723525:aixpfy93ova";
     const query = `${meta.host} drum and bass`;
     const apiKey = config.googleAPI;
     const url = `https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${cx}&q=${query}`;
@@ -186,35 +186,29 @@ class App extends Component {
         </div>
       );
     } else if (this.state.playing) {
-        return (
-            <div className="meta">
-             no stream details available
-            </div>
-          );
+      return <div className="meta">no stream details available</div>;
     }
   };
 
   selectShow = currentShow => e => {
-
     let url;
-    switch(currentShow) {
-    case "Bassdrive Radio":
+    switch (currentShow) {
+      case "Bassdrive Radio":
         url = bassdrive;
         break;
-    case "CBC Radio 1":
+      case "CBC Radio 1":
         url = torontoRadio1;
         break;
-    case "CBC Radio 2":
+      case "CBC Radio 2":
         url = torontoRadio2;
         break;
-    default :
+      default:
         url = bassdrive;
-    break;   
+        break;
     }
-    
-    this.setState({currentShow, url, meta: null})
 
-  }
+    this.setState({ currentShow, url, meta: null });
+  };
 
   render() {
     const {
@@ -234,14 +228,20 @@ class App extends Component {
     } = this.state;
     const SEPARATOR = " · ";
 
+    const min = 0;
+    const max = 1;
+
     return (
       <div className="loomradio">
         <section className="section">
           <div>
-              <img src={loomradioMark} alt="loomradio" />
+            <img src={loomradioMark} alt="loomradio" />
           </div>
           <h1>{currentShow}</h1>
-          <div className="player-wrapper" style={{ display: "none", marginBottom: 20 }}>
+          <div
+            className="player-wrapper"
+            style={{ display: "none", marginBottom: 20 }}
+          >
             <ReactPlayer
               ref={this.ref}
               className="react-player"
@@ -271,12 +271,54 @@ class App extends Component {
             />
           </div>
           {this.renderMeta()}
-          {currentShow !== "Loom Radio" && (<button className="playBtn" onClick={this.playPause}>{playing ? "Pause" : "Play"}</button>)}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+              marginBottom: 20
+            }}
+          >
+            {currentShow !== "Loom Radio" && (
+              <button className="playBtn" onClick={this.playPause}>
+                {playing ? "Pause" : "Play"}
+              </button>
+            )}
+
+            {currentShow !== "Loom Radio" && playing && (
+              <input
+                className="InputRange"
+                type="range"
+                min={min}
+                max={max}
+                step="any"
+                value={volume}
+                onChange={this.setVolume}
+                style={{ backgroundSize: `${(volume - min) / (max - min) * 100}% 100%` }}
+              />
+            )}
+          </div>
           <div>
-          <button className="select-show" onClick={this.selectShow("Bassdrive Radio")}>Bassdrive Radio</button>
-          <button className="select-show" onClick={this.selectShow("CBC Radio 1")}>CBC Radio 1</button>
-          <button className="select-show" onClick={this.selectShow("CBC Radio 2")}>CBC Radio 2</button>
-         </div>  
+            <button
+              className="select-show"
+              onClick={this.selectShow("Bassdrive Radio")}
+            >
+              Bassdrive Radio
+            </button>
+            <button
+              className="select-show"
+              onClick={this.selectShow("CBC Radio 1")}
+            >
+              CBC Radio 1
+            </button>
+            <button
+              className="select-show"
+              onClick={this.selectShow("CBC Radio 2")}
+            >
+              CBC Radio 2
+            </button>
+          </div>
         </section>
       </div>
     );
