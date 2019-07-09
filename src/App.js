@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import axios from "axios";
 // import screenfull from "screenfull";
 import config from "./config";
+import loomradioMark from "./loomradio_mark.svg";
 
 import "./reset.css";
 import "./defaults.css";
@@ -36,7 +37,7 @@ const bassdrive = "https://bassdrive.radioca.st/;stream/1";
 
 class App extends Component {
   state = {
-    url: bassdrive, //
+    url: torontoRadio2, //
     pip: false,
     playing: false,
     controls: false,
@@ -48,7 +49,8 @@ class App extends Component {
     duration: 0,
     playbackRate: 1.0,
     loop: false,
-    meta: null
+    meta: null,
+    currentShow: "Loom Radio"
   };
   componentDidMount() {}
   load = url => {
@@ -59,7 +61,7 @@ class App extends Component {
       pip: false
     });
   };
-  playPause = () => {
+  playPause = event => {
     this.setState({ playing: !this.state.playing });
   };
   stop = () => {
@@ -175,16 +177,45 @@ class App extends Component {
     this.player = player;
   };
   renderMeta = meta => {
-    if (this.state.meta) {
+    if (this.state.meta && this.state.currentShow === "Bassdrive Radio") {
       return (
         <div className="meta">
-          <button onClick={this.onSearch}>
+          <button onClick={this.onSearch} className="meta-show">
             <h2>{this.state.meta.StreamTitle}</h2>
           </button>
         </div>
       );
+    } else if (this.state.playing) {
+        return (
+            <div className="meta">
+             no stream details available
+            </div>
+          );
     }
   };
+
+  selectShow = currentShow => e => {
+
+    let url;
+    switch(currentShow) {
+    case "Bassdrive Radio":
+        url = bassdrive;
+        break;
+    case "CBC Radio 1":
+        url = torontoRadio1;
+        break;
+    case "CBC Radio 2":
+        url = torontoRadio2;
+        break;
+    default :
+        url = bassdrive;
+    break;   
+    }
+    
+    this.setState({currentShow, url, meta: null})
+
+  }
+
   render() {
     const {
       url,
@@ -198,15 +229,19 @@ class App extends Component {
       loaded,
       duration,
       playbackRate,
-      pip
+      pip,
+      currentShow
     } = this.state;
     const SEPARATOR = " · ";
 
     return (
-      <div className="app">
+      <div className="loomradio">
         <section className="section">
-          <h1>Bassdrive Radio</h1>
-          <div className="player-wrapper" style={{ display: "none" }}>
+          <div>
+              <img src={loomradioMark} alt="loomradio" />
+          </div>
+          <h1>{currentShow}</h1>
+          <div className="player-wrapper" style={{ display: "none", marginBottom: 20 }}>
             <ReactPlayer
               ref={this.ref}
               className="react-player"
@@ -236,7 +271,12 @@ class App extends Component {
             />
           </div>
           {this.renderMeta()}
-          <button onClick={this.playPause}>{playing ? "Pause" : "Play"}</button>
+          {currentShow !== "Loom Radio" && (<button className="playBtn" onClick={this.playPause}>{playing ? "Pause" : "Play"}</button>)}
+          <div>
+          <button className="select-show" onClick={this.selectShow("Bassdrive Radio")}>Bassdrive Radio</button>
+          <button className="select-show" onClick={this.selectShow("CBC Radio 1")}>CBC Radio 1</button>
+          <button className="select-show" onClick={this.selectShow("CBC Radio 2")}>CBC Radio 2</button>
+         </div>  
         </section>
       </div>
     );

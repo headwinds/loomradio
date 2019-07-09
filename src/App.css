@@ -1,20 +1,15 @@
-$column-width: 480px;
-$gutter-width: 20px;
 
-.app {
+.loomradio {
   margin: auto;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;
   text-align: center;
   color: #666;
-}
-
-.section {
-  display: inline-block;
-  max-width: $column-width;
-  margin: $gutter-width;
-  text-align: left;
-  vertical-align: top;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
 }
 
 .player-wrapper {
@@ -24,30 +19,88 @@ $gutter-width: 20px;
 
 .react-player {
   margin-bottom: 10px;
-  background: rgba(0, 0, 0, .1);
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .faded {
-  color: rgba(0, 0, 0, .5);
+  color: rgba(0, 0, 0, 0.5);
 }
 
-.footer {
-  margin: $gutter-width;
-}
-
-h2 {
+h1 {
     padding: 0px;
     margin: 0px;
+    color: #fb0098;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+
+h2 {
+  padding: 0px;
+  margin: 0px;
+  color: #000;
+  font-size: 18px;
 }
 
 .meta {
-    display: block;
-    animation: mymove 0.5s;
-    animation-timing-function: ease-out;
-    margin-bottom: 20px;
+display: flex;
+justify-content: center;
+  animation: mymove 0.5s;
+  animation-timing-function: ease-out;
+  margin-bottom: 20px;
 }
-    
-  @keyframes mymove {
-    from {height: 0px; opacity: 0}
-    to {height: 40px; opacity: 1}
+
+@keyframes mymove {
+  from {
+    height: 0px;
+    opacity: 0;
   }
+  to {
+    height: 40px;
+    opacity: 1;
+  }
+}
+
+@keyframes animte-play {
+    from {
+      max-height: 0px;
+      opacity: 0;
+    }
+    to {
+      max-height: 40px;
+      opacity: 1;
+    }
+  }
+
+.playBtn {
+ animation: animte-play 0.5s;
+  animation-timing-function: ease-out;
+  margin-bottom: 20px;
+}
+
+
+button {
+    border: none;
+    padding: 5px 10px;
+    background: #c4f3eb;
+    border-radius: 5px;
+    font-size: 16px;
+    color: teal;
+}
+
+button.meta-show {
+    background: #c4f3eb;
+    border-radius: 0px;
+    background-color: whitesmoke;
+    border-bottom: 2px solid #f92aa7;
+    cursor: "pointer";
+}
+
+button.select-show {
+    border: 1px solid #c4f3eb;
+    padding: 5px 10px;
+    background: transparent;
+    border-radius: 5px;
+    font-size: 16px;
+    color: teal;
+}

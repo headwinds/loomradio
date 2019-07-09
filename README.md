@@ -23,6 +23,15 @@ yarn start
 now
 ```
 
+#### CBC Radio Schedules 
+
+Since the stream meta is not available, could I scrape the schedules instead and display 
+the show based on the current time?
+
+https://www.cbc.ca/m/touch/pg-r1.html
+
+TODO - Create a beautiful soup service
+
 
 #### Credit 
 * [Create React App](https://github.com/facebook/create-react-app)
