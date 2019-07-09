@@ -43,23 +43,20 @@ h2 {
 .meta {
   display: flex;
   justify-content: center;
-  animation: mymove 0.5s;
-  animation-timing-function: ease-out;
   margin-bottom: 20px;
 }
 
-@keyframes mymove {
-  from {
-    height: 0px;
-    opacity: 0;
-  }
-  to {
-    height: 40px;
-    opacity: 1;
-  }
+.animate-in {
+  animation: animate-play-in 0.5s;
+  animation-timing-function: ease-out;
 }
 
-@keyframes animte-play {
+.animate-out {
+  animation: animate-play-out 0.5s;
+  animation-timing-function: ease-out;
+}
+
+@keyframes animate-play-in {
   from {
     max-height: 0px;
     opacity: 0;
@@ -70,9 +67,18 @@ h2 {
   }
 }
 
+@keyframes animate-play-out {
+  from {
+    max-height: 40px;
+    opacity: 1;
+  }
+  to {
+    max-height: 0px;
+    opacity: 0;
+  }
+}
+
 .playBtn {
-  animation: animte-play 0.5s;
-  animation-timing-function: ease-out;
   padding: 5px 10px;
   margin: 0px;
 }
@@ -111,7 +117,7 @@ input {
 }
 
 .InputRange {
-   margin-left: 20px !important;
+  margin-left: 20px !important;
   -webkit-appearance: none;
   margin: 10px 0;
   outline: none;

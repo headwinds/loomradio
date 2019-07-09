@@ -177,7 +177,7 @@ class App extends Component {
     this.player = player;
   };
   renderMeta = meta => {
-    if (this.state.meta && this.state.currentShow === "Bassdrive Radio") {
+    if (this.state.playing && this.state.meta && this.state.currentShow === "Bassdrive Radio") {
       return (
         <div className="meta">
           <button onClick={this.onSearch} className="meta-show">
@@ -185,7 +185,7 @@ class App extends Component {
           </button>
         </div>
       );
-    } else if (this.state.playing) {
+    } else if (this.state.currentShow !== "Loom Radio") {
       return <div className="meta">no stream details available</div>;
     }
   };
@@ -281,14 +281,14 @@ class App extends Component {
             }}
           >
             {currentShow !== "Loom Radio" && (
-              <button className="playBtn" onClick={this.playPause}>
+              <button className="playBtn animate-in" onClick={this.playPause}>
                 {playing ? "Pause" : "Play"}
               </button>
             )}
 
-            {currentShow !== "Loom Radio" && playing && (
+            {currentShow !== "Loom Radio" && (
               <input
-                className="InputRange"
+                className="InputRange animate-in"
                 type="range"
                 min={min}
                 max={max}
