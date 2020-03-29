@@ -2,7 +2,8 @@ import React, { Component } from "react";
 // import { findDOMNode } from "react-dom";
 import axios from "axios";
 // import screenfull from "screenfull";
-import config from "./config";
+// import config from "./config";
+import DanceFloor from "./channel/DanceFloor";
 import loomradioMark from "./loomradio_mark.svg";
 
 import "./reset.css";
@@ -96,6 +97,11 @@ class App extends Component {
     this.setState({ pip: !this.state.pip });
   };
   onSearch = () => {
+
+    /*
+
+    Need to get googleAPI key and store config on dropbox
+
     const { meta } = this.state;
     const cx = "001416230067881723525:aixpfy93ova";
     const query = `${meta.host} drum and bass`;
@@ -107,6 +113,8 @@ class App extends Component {
       },
       fail => {}
     );
+    */
+
   };
   onPlay = () => {
     console.log("onPlay");
@@ -234,6 +242,7 @@ class App extends Component {
     return (
       <div className="loomradio">
         <section className="section">
+          <DanceFloor />
           <div>
             <img src={loomradioMark} alt="loomradio" />
           </div>
@@ -306,6 +315,7 @@ class App extends Component {
             >
               Bassdrive Radio
             </button>
+            {/*
             <button
               className="select-show"
               onClick={this.selectShow("CBC Radio 1")}
@@ -317,7 +327,7 @@ class App extends Component {
               onClick={this.selectShow("CBC Radio 2")}
             >
               CBC Radio 2
-            </button>
+            </button>*/}
           </div>
         </section>
       </div>
