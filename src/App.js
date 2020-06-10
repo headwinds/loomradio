@@ -1,40 +1,20 @@
 import React, { Component } from "react";
 // import { findDOMNode } from "react-dom";
-import axios from "axios";
 // import screenfull from "screenfull";
 // import config from "./config";
 import DanceFloor from "./channel/DanceFloor";
 import loomradioMark from "./loomradio_mark.svg";
-
+import { version } from "../package.json";
+import ReactPlayer from "./ReactPlayer";
+import { stations } from "./stations/stations";
 import "./reset.css";
 import "./defaults.css";
 import "./range.css";
 import "./App.css";
 
-import { version } from "../package.json";
-import ReactPlayer from "./ReactPlayer";
-import Duration from "./Duration";
-
-const MULTIPLE_SOURCES = [
-  {
-    src: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4",
-    type: "video/mp4"
-  },
-  {
-    src: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.ogv",
-    type: "video/ogv"
-  },
-  {
-    src: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.webm",
-    type: "video/webm"
-  }
-];
-
-const torontoRadio1 =
-  "https://cbc_r1_tor.akacast.akamaistream.net/7/632/451661/v1/rc.akacast.akamaistream.net/cbc_r1_tor";
-const torontoRadio2 =
-  "https://cbc_r2_tor.akacast.akamaistream.net/7/364/451661/v1/rc.akacast.akamaistream.net/cbc_r2_tor";
-const bassdrive = "https://bassdrive.radioca.st/;stream/1";
+const bassdrive = stations[1].url;
+const torontoRadio1 = bassdrive;
+const torontoRadio2 = bassdrive;
 
 class App extends Component {
   state = {
@@ -107,7 +87,7 @@ class App extends Component {
     const query = `${meta.host} drum and bass`;
     const apiKey = config.googleAPI;
     const url = `https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${cx}&q=${query}`;
-    axios.get(url).then(
+    fetch(url).then(
       success => {
         console.log("TCL: App -> onSearch -> success", success);
       },
@@ -329,6 +309,7 @@ class App extends Component {
               CBC Radio 2
             </button>*/}
           </div>
+          <div><span style={{fontSize: 10, color: "#ddd"}}>{version}</span></div>
         </section>
       </div>
     );
