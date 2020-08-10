@@ -7,23 +7,21 @@ import loomradioMark from "./loomradio_mark.svg";
 import { version } from "../package.json";
 import ReactPlayer from "./ReactPlayer";
 import { stations } from "./stations/stations";
-import "./reset.css";
-import "./defaults.css";
-import "./range.css";
-import "./App.css";
 
-const bassdrive = stations[1].url;
+const station = stations.find((station) => station.name === "bassdrive");
+const bassdrive = station.url;
 const torontoRadio1 = bassdrive;
 const torontoRadio2 = bassdrive;
 
 class App extends Component {
   state = {
-    url: torontoRadio2, //
+    station,
+    url: bassdrive, //
     pip: false,
     playing: false,
     controls: false,
     light: false,
-    volume: 0.8,
+    volume: 0.5,
     muted: false,
     played: 0,
     loaded: 0,
@@ -31,18 +29,18 @@ class App extends Component {
     playbackRate: 1.0,
     loop: false,
     meta: null,
-    currentShow: "Loom Radio"
+    currentShow: "Loom Radio",
   };
   componentDidMount() {}
-  load = url => {
+  load = (url) => {
     this.setState({
       url,
       played: 0,
       loaded: 0,
-      pip: false
+      pip: false,
     });
   };
-  playPause = event => {
+  playPause = (event) => {
     this.setState({ playing: !this.state.playing });
   };
   stop = () => {
@@ -53,7 +51,7 @@ class App extends Component {
     this.setState(
       {
         controls: !this.state.controls,
-        url: null
+        url: null,
       },
       () => this.load(url)
     );
@@ -64,20 +62,19 @@ class App extends Component {
   toggleLoop = () => {
     this.setState({ loop: !this.state.loop });
   };
-  setVolume = e => {
+  setVolume = (e) => {
     this.setState({ volume: parseFloat(e.target.value) });
   };
   toggleMuted = () => {
     this.setState({ muted: !this.state.muted });
   };
-  setPlaybackRate = e => {
+  setPlaybackRate = (e) => {
     this.setState({ playbackRate: parseFloat(e.target.value) });
   };
   togglePIP = () => {
     this.setState({ pip: !this.state.pip });
   };
   onSearch = () => {
-
     /*
 
     Need to get googleAPI key and store config on dropbox
@@ -94,26 +91,74 @@ class App extends Component {
       fail => {}
     );
     */
-
   };
-  onPlay = () => {
-    console.log("onPlay");
+
+  fetchMeta = (station) => {
+    const { ownmetadataurl } = station;
+
     const self = this;
 
-    const url = this.state.url;
+    const decoder = new TextDecoder("utf-8");
+    return fetch(ownmetadataurl).then((response) => {
+      response.body
+        .getReader()
+        .read()
+        .then(({ value, done }) => {
+          console.log(decoder.decode(value));
+          const artist = decoder.decode(value);
+
+          const host = artist.split("-")[0];
+          const show = artist.split("-")[1]; // need parse out date
+
+          return self.setState({ meta: { StreamTitle: artist }, host, show });
+        });
+    });
+  };
+
+  onPlay = () => {
+    console.log("App onPlay");
+    const self = this;
+    const { station, url } = this.state;
 
     const Parser = require("icecast-parser");
     const radioStation = new Parser(url);
 
     // "http://bassdrive.radioca.st/;stream/1"
 
-    radioStation.on("metadata", function(metadata) {
+    if (station.ownmetadataurl) {
+      this.fetchMeta(station);
+    }
+
+    radioStation.on("metadata", function (metadata) {
       //Live from NY hosted by Overfiend - special guest SOHLMAN
       //The Prague Connection June 17th 2019 - hosted by Blofeld
       const host = metadata.StreamTitle.split("by")[1];
       const show = metadata.StreamTitle.split("hosted")[0]; // need parse out date
 
+      console.log("App onPlay metadata: ", metadata);
+
       self.setState({ meta: metadata, host, show });
+    });
+
+    radioStation.on("end", function (error) {
+      console.log("radioStation ended");
+    });
+
+    radioStation.on("error", function (error) {
+      console.log("radioStation error", error);
+    });
+
+    radioStation.on("empty", function () {
+      console.log("radioStation empty");
+    });
+
+    radioStation.on("stream", function (stream) {
+      //stream.pipe(process.stdout);
+      console.log("radioStation stream ", stream);
+    });
+
+    radioStation.on("error", (error) => {
+      console.log("radioStation error ", error);
     });
 
     this.setState({ playing: true });
@@ -130,17 +175,17 @@ class App extends Component {
     console.log("onPause");
     this.setState({ playing: false });
   };
-  onSeekMouseDown = e => {
+  onSeekMouseDown = (e) => {
     this.setState({ seeking: true });
   };
-  onSeekChange = e => {
+  onSeekChange = (e) => {
     this.setState({ played: parseFloat(e.target.value) });
   };
-  onSeekMouseUp = e => {
+  onSeekMouseUp = (e) => {
     this.setState({ seeking: false });
     this.player.seekTo(parseFloat(e.target.value));
   };
-  onProgress = state => {
+  onProgress = (state) => {
     console.log("onProgress", state);
     // We only want to update time slider if we are not currently seeking
     if (!this.state.seeking) {
@@ -151,7 +196,7 @@ class App extends Component {
     console.log("onEnded");
     this.setState({ playing: this.state.loop });
   };
-  onDuration = duration => {
+  onDuration = (duration) => {
     console.log("onDuration", duration);
     this.setState({ duration });
   };
@@ -161,11 +206,12 @@ class App extends Component {
   renderLoadButton = (url, label) => {
     return <button onClick={() => this.load(url)}>{label}</button>;
   };
-  ref = player => {
+  ref = (player) => {
     this.player = player;
   };
-  renderMeta = meta => {
-    if (this.state.playing && this.state.meta && this.state.currentShow === "Bassdrive Radio") {
+  renderMeta = (meta) => {
+    if (this.state.playing && this.state.meta) {
+      console.log("App meta: ", meta);
       return (
         <div className="meta">
           <button onClick={this.onSearch} className="meta-show">
@@ -178,24 +224,19 @@ class App extends Component {
     }
   };
 
-  selectShow = currentShow => e => {
-    let url;
-    switch (currentShow) {
-      case "Bassdrive Radio":
-        url = bassdrive;
-        break;
-      case "CBC Radio 1":
-        url = torontoRadio1;
-        break;
-      case "CBC Radio 2":
-        url = torontoRadio2;
-        break;
-      default:
-        url = bassdrive;
-        break;
-    }
+  selectShow = (currentShow) => (e) => {
+    const station = stations.find((station) => station.name === currentShow);
+    const { url } = station;
 
-    this.setState({ currentShow, url, meta: null });
+    this.setState({ currentShow, station, url, meta: null });
+  };
+
+  onErrorHandler = (e) => {
+    console.log(e);
+  };
+
+  onBufferHandler = () => {
+    console.log("App handling buffer from FilePlayer");
   };
 
   render() {
@@ -212,12 +253,27 @@ class App extends Component {
       duration,
       playbackRate,
       pip,
-      currentShow
+      currentShow,
     } = this.state;
     const SEPARATOR = " · ";
 
     const min = 0;
     const max = 1;
+
+    const renderStationButtons = () => {
+      return stations.map((station) => {
+        const { name } = station;
+        return (
+          <button
+            className="select-show"
+            onClick={this.selectShow(name)}
+            key={name}
+          >
+            {name}
+          </button>
+        );
+      });
+    };
 
     return (
       <div className="loomradio">
@@ -251,10 +307,10 @@ class App extends Component {
               onEnablePIP={this.onEnablePIP}
               onDisablePIP={this.onDisablePIP}
               onPause={this.onPause}
-              onBuffer={() => console.log("onBuffer")}
-              onSeek={e => console.log("onSeek", e)}
+              onBuffer={this.onBufferHandler}
+              onSeek={(e) => console.log("onSeek", e)}
               onEnded={this.onEnded}
-              onError={e => console.log("onError", e)}
+              onError={this.onErrorHandler}
               onProgress={this.onProgress}
               onDuration={this.onDuration}
             />
@@ -266,7 +322,7 @@ class App extends Component {
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "center",
-              marginBottom: 20
+              marginBottom: 20,
             }}
           >
             {currentShow !== "Loom Radio" && (
@@ -284,17 +340,16 @@ class App extends Component {
                 step="any"
                 value={volume}
                 onChange={this.setVolume}
-                style={{ backgroundSize: `${(volume - min) / (max - min) * 100}% 100%` }}
+                style={{
+                  backgroundSize: `${
+                    ((volume - min) / (max - min)) * 100
+                  }% 100%`,
+                }}
               />
             )}
           </div>
           <div>
-            <button
-              className="select-show"
-              onClick={this.selectShow("Bassdrive Radio")}
-            >
-              Bassdrive Radio
-            </button>
+            {renderStationButtons()}
             {/*
             <button
               className="select-show"
@@ -309,7 +364,9 @@ class App extends Component {
               CBC Radio 2
             </button>*/}
           </div>
-          <div><span style={{fontSize: 10, color: "#ddd"}}>{version}</span></div>
+          <div>
+            <span style={{ fontSize: 10, color: "#ddd" }}>{version}</span>
+          </div>
         </section>
       </div>
     );
