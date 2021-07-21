@@ -1,7 +1,7 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import App from "../src/App";
+import LoomRadio from "../src/LoomRadio";
 
 export default function Home() {
-  return <App />;
+  return <LoomRadio />;
 }

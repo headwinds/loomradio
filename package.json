@@ -12,10 +12,11 @@
     "deepmerge": "^3.0.0",
     "icecast-parser": "^3.1.0",
     "load-script": "^1.0.0",
-    "next": "9.5.1",
+    "next": "^10.0.2",
     "prop-types": "^15.5.6",
     "pusher-js": "^5.1.1",
     "react": "16.13.1",
+    "react-chat-ui": "^0.4.0",
     "react-dom": "16.13.1"
   },
   "devDependencies": {

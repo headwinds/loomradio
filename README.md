@@ -13,6 +13,10 @@ yarn
 yarn start
 ```
 
+#### Styles
+
+see styles > LoomRadio.css
+
 #### Google Search
 
 sign up for a free [google search](https://developers.google.com/custom-search/v1/overview) API which gives 100 searches per day.
