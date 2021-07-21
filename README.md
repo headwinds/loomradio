@@ -8,14 +8,24 @@ I wanted to make React Player easy to deploy with [now](https://zeit.co/now) and
 
 #### Getting Started
 
+```
+yarn
+yarn start
+```
+
+#### Styles
+
+see styles > LoomRadio.css
+
+#### Google Search
+
 sign up for a free [google search](https://developers.google.com/custom-search/v1/overview) API which gives 100 searches per day.
 
 find src > config_sample.js and rename it to config.js - add your google API key to this file.
 
-```
-yarn 
-yarn start
-```
+## Pusher 
+
+I want to see who is connected to various channels and track usage over time. While I'd prefer to use Socket.io, I couldn't find a decent way to install it on Zeit and didn't want to host with Heroku so I used the [Pusher](https://www.pusher.com) service instead to create the socket as a service. 
 
 #### Deply to Zeit
 
@@ -25,8 +35,7 @@ now
 
 #### CBC Radio Schedules 
 
-Since the stream meta is not available, could I scrape the schedules instead and display 
-the show based on the current time?
+Since the stream meta is not available, could I scrape the schedules instead and display the show based on the current time?
 
 https://www.cbc.ca/m/touch/pg-r1.html
 

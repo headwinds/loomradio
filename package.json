@@ -2,36 +2,24 @@
   "name": "loomradio",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
   "dependencies": {
-    "axios": "^0.19.0",
+    "cross-country": "^1.1.2",
     "deepmerge": "^3.0.0",
     "icecast-parser": "^3.1.0",
     "load-script": "^1.0.0",
+    "next": "^10.0.2",
     "prop-types": "^15.5.6",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
+    "pusher-js": "^5.1.1",
+    "react": "16.13.1",
+    "react-chat-ui": "^0.4.0",
+    "react-dom": "16.13.1"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "now-build": "react-scripts build"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "next-images": "^1.4.1"
   }
 }
