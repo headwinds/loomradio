@@ -6,7 +6,9 @@ import { version } from "../package.json";
 import ReactPlayer from "./ReactPlayer";
 import { stations } from "./stations/stations";
 
-const station = stations.find((station) => station.name === "bassdrive");
+const station = stations.find(
+  (station) => station.name.toLowerCase() === "bassdrive"
+);
 const bassdrive = station.url;
 const torontoRadio1 = bassdrive;
 const torontoRadio2 = bassdrive;
