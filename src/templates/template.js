@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Logo,
   Column,
@@ -9,14 +9,13 @@ import {
   SubHeadline,
   Headline,
   Paragraph,
-  Wolf
+  Wolf,
 } from "cross-country";
 
-export default function Template() => {
-
-    return(
-        <Column>
-           <Paragraph text="hello world" />
-        </Column>
-    )
+export default function Template() {
+  return (
+    <Column>
+      <Paragraph text="hello world" />
+    </Column>
+  );
 }

@@ -5,21 +5,29 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "cross-country": "^1.1.2",
-    "deepmerge": "^3.0.0",
+    "deepmerge": "^4.3.1",
     "icecast-parser": "^3.1.0",
     "load-script": "^1.0.0",
-    "next": "^10.0.2",
-    "prop-types": "^15.5.6",
-    "pusher-js": "^5.1.1",
-    "react": "16.13.1",
-    "react-chat-ui": "^0.4.0",
-    "react-dom": "16.13.1"
+    "next": "^14.0.4",
+    "pusher-js": "^8.4.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "next-images": "^1.4.1"
+    "@types/node": "^20.10.5",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "autoprefixer": "^10.4.0",
+    "eslint": "^8.56.0",
+    "eslint-config-next": "^14.0.4",
+    "postcss": "^8.4.0",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.3.3"
   }
 }

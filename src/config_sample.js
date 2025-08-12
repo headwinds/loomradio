@@ -1,3 +1,3 @@
-{
-    "googleAPI": "YOUR-KEY-HERE"
-}
+module.exports = {
+  googleAPI: "YOUR-KEY-HERE",
+};

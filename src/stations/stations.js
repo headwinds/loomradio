@@ -96,19 +96,18 @@ export const stations = [
 
 export const canadianRadioStations = [
   {
-    url:
-      "https://cbc_r1_tor.akacast.akamaistream.net/7/632/451661/v1/rc.akacast.akamaistream.net/cbc_r1_tor",
+    url: "https://cbc_r1_tor.akacast.akamaistream.net/7/632/451661/v1/rc.akacast.akamaistream.net/cbc_r1_tor",
     type: "cbc",
     name: "CBC Radio 1",
     working: true,
   },
   {
-    url:
-      "https://cbc_r2_tor.akacast.akamaistream.net/7/364/451661/v1/rc.akacast.akamaistream.net/cbc_r2_tor",
+    url: "https://cbc_r2_tor.akacast.akamaistream.net/7/364/451661/v1/rc.akacast.akamaistream.net/cbc_r2_tor",
     type: "cbc",
     name: "CBC Radio 2",
     working: true,
   },
 ];
 
-export default {};
+const allStations = { stations, canadianRadioStations };
+export default allStations;

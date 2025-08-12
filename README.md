@@ -1,51 +1,113 @@
-# Loom Radio
+# LoomRadio 🎵
 
-After discovering [React-Player](https://cookpete.com/react-player/), I wanted to strip it down to play shoutcast streams so that I could stream and switch between my favourite radio stations [bassdrive](http://www.basedrive.com) and [cbc radio](https://www.cbc.ca/radio/includes/stream.html).
+A modern, responsive internet radio player built with Next.js 14, React 18, and TypeScript.
 
-I wanted to make React Player easy to deploy with [now](https://zeit.co/now) and thus ported it into a simple create react app so I wouldn't have to worry about webpack config. I added [icecast-parse](https://www.npmjs.com/package/icecast-parser) so that I could see the current show title. Then I thought it would be nice to throw that title into a google search.
+## ✨ Features
 
-[loomradio.now.sh](https://loomradio.now.sh/)
+- **Modern Tech Stack**: Built with Next.js 14, React 18, and TypeScript
+- **Responsive Design**: Beautiful, mobile-first UI with CSS Modules
+- **Audio Controls**: Play, pause, stop, volume control, and playback rate adjustment
+- **Station Management**: Easy switching between different radio stations
+- **Picture-in-Picture**: Support for PiP mode
+- **Light/Dark Themes**: Toggle between different visual themes
+- **Progress Tracking**: Real-time playback progress and seeking
+- **Modern UI**: Glassmorphism design with smooth animations
 
-#### Getting Started
+## 🚀 Getting Started
 
-```
-yarn
-yarn start
-```
+### Prerequisites
 
-#### Styles
+- Node.js 18+ 
+- pnpm (recommended) or npm
 
-see styles > LoomRadio.css
+### Installation
 
-#### Google Search
-
-sign up for a free [google search](https://developers.google.com/custom-search/v1/overview) API which gives 100 searches per day.
-
-find src > config_sample.js and rename it to config.js - add your google API key to this file.
-
-## Pusher 
-
-I want to see who is connected to various channels and track usage over time. While I'd prefer to use Socket.io, I couldn't find a decent way to install it on Zeit and didn't want to host with Heroku so I used the [Pusher](https://www.pusher.com) service instead to create the socket as a service. 
-
-#### Deply to Zeit
-
-```
-now
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd loomradio
 ```
 
-#### CBC Radio Schedules 
+2. Install dependencies:
+```bash
+pnpm install
+# or
+npm install
+```
 
-Since the stream meta is not available, could I scrape the schedules instead and display the show based on the current time?
+3. Run the development server:
+```bash
+pnpm dev
+# or
+npm run dev
+```
 
-https://www.cbc.ca/m/touch/pg-r1.html
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-TODO - Create a beautiful soup service
+## 🛠️ Available Scripts
 
+- `pnpm dev` - Start development server
+- `pnpm build` - Build for production
+- `pnpm start` - Start production server
+- `pnpm lint` - Run ESLint
+- `pnpm type-check` - Run TypeScript type checking
 
-#### Credit 
-* [Create React App](https://github.com/facebook/create-react-app)
-* [React-Player](https://cookpete.com/react-player/)
-* [icecast-parse](https://www.npmjs.com/package/icecast-parser)
-* [google search](https://developers.google.com/custom-search/v1/overview)
-* [loom](https://www.eurogamer.net/articles/2015-04-26-remembering-loom-the-game-designed-to-be-completed)
-* [observable music viz](https://observablehq.com/@alandelip/music-viz)
+## 🏗️ Project Structure
+
+```
+loomradio/
+├── src/
+│   ├── components/          # React components
+│   │   └── LoomRadio.tsx   # Main radio player component
+│   ├── stations/            # Radio station configurations
+│   └── players/             # Media player implementations
+├── styles/                  # CSS modules and global styles
+├── pages/                   # Next.js pages
+├── public/                  # Static assets
+└── tsconfig.json           # TypeScript configuration
+```
+
+## 🎨 Styling
+
+The project uses CSS Modules for component-scoped styling with:
+- Modern CSS features (Grid, Flexbox, CSS Variables)
+- Responsive design principles
+- Glassmorphism effects
+- Smooth transitions and animations
+
+## 🔧 Configuration
+
+### TypeScript
+- Strict type checking enabled
+- Path aliases configured for clean imports
+- Modern ES6+ features supported
+
+### Next.js
+- App Router ready (currently using Pages Router)
+- Image optimization configured
+- ESLint integration
+
+## 📱 Browser Support
+
+- Chrome 90+
+- Firefox 88+
+- Safari 14+
+- Edge 90+
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+## 🙏 Acknowledgments
+
+- Built with [Next.js](https://nextjs.org/)
+- Powered by [React](https://reactjs.org/)
+- Styled with modern CSS and [CSS Modules](https://github.com/css-modules/css-modules)
